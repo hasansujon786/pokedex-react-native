@@ -7,7 +7,7 @@ import { HEADER_SIZE } from '../constant/shared'
 const INDICATOR_SIZE = 80
 const LIGHT_SIZE = 20
 
-const Header = () => {
+const Header = ({ isLoading }) => {
   return (
     <View style={styles.header}>
       <View style={{ flexDirection: 'row' }}>
@@ -18,6 +18,7 @@ const Header = () => {
           <View style={[styles.light, styles.lightRed]} />
           <View style={[styles.light, styles.lightYellow]} />
           <View style={[styles.light, styles.lightGreen]} />
+          {isLoading && <View style={[styles.light, styles.lightGreen]} />}
         </View>
       </View>
     </View>

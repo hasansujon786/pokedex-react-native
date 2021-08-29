@@ -9,17 +9,17 @@ const DISPLAY_WIDTH = width - 16 - (DISPLAY_MARGIN * 2)
 const DISPLAY_PADDING = 36
 const DOT_SIZE = 14
 
-const Display = () => {
+const Display = ({ image }) => {
   return (
     <View style={styles.container}>
       <View style={styles.dotWrapper}>
         <View style={styles.dot} />
         <View style={styles.dot} />
       </View>
-      <View style={styles.screen}>
+      <View style={[styles.screen, { backgroundColor: image ? Colors.blueLight : '#000' }]}>
         <Image
           resizeMode='contain'
-          source={{ uri: 'https://assets.stickpng.com/images/580b57fcd9996e24bc43c319.png' }}
+          source={{ uri: image }}
           style={{ height: '100%', width: '100%' }}
         />
       </View>
@@ -66,8 +66,6 @@ const styles = StyleSheet.create({
     height: '100%',
     borderRadius: 10,
     borderWidth: 5,
-    backgroundColor: Colors.blueLight,
-    // backgroundColor: '#000',
     borderColor: Colors.blueLightAlt,
     borderBottomWidth: 0,
   },
