@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Pressable, View, SafeAreaView } from 'react-native';
+import * as Speech from 'expo-speech';
 
 import Header from './components/Header'
 import Cover from './components/Cover'
@@ -24,8 +25,6 @@ export default function App() {
     description: '',
     image: null,
   });
-
-
   const updatePokemon = async () => {
     setIsLoading(true)
     const pokemonID =
@@ -36,17 +35,53 @@ export default function App() {
     setIsLoading(false)
   };
 
+  const [isFlashLightOn, setIsFlashLightOn] = useState(false)
+  const [isSpeaking, setIsSpeaking] = useState(false)
+  const sayPokemonName = (pokemon) => {
+    if (isSpeaking) return
+    Speech.speak(
+      `${pokemon.name}: ${pokemon.description}`,
+      {
+        language: 'en-US',
+        pitch: 0.5,
+        rate: 1.1,
+        onStart: () => {
+          setIsSpeaking(true)
+          setIsFlashLightOn(true)
+        },
+        onDone: () => {
+          setIsSpeaking(false)
+          setIsFlashLightOn(false)
+        },
+        onStopped: () => {
+          setIsSpeaking(false)
+          setIsFlashLightOn(false)
+        }
+      }
+    );
+  };
+
   useEffect(() => {
     updatePokemon();
   }, []);
 
+  useEffect(() => {
+    if (isCoverOpen && !isLoading) {
+      setIsSpeaking(false)
+      sayPokemonName(pokemon)
+    } else {
+      Speech.stop();
+    }
+  }, [isCoverOpen, isLoading]);
+
+
   return (
     <SafeAreaView style={styles.screen}>
-      <Header isLoading={isLoading} />
+      <Header isFlashLightOn={isFlashLightOn} isLoading={isLoading} />
       <Pressable style={{ flex: 1, padding: 10, paddingBottom: 0 }} onPress={handleCoverToggle}>
         <View style={{ backgroundColor: Colors.red, flex: 1 }}>
           <Display image={pokemon.image} />
-          <View style={styles.greenBox} />
+          <Pressable onPress={() => sayPokemonName(pokemon)} style={styles.greenBox} />
         </View>
       </Pressable>
 
