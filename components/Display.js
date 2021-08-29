@@ -78,8 +78,8 @@ const styles = StyleSheet.create({
     right: DISPLAY_PADDING,
   },
   line: {
-    marginVertical: 1.3,
     height: 3,
-    backgroundColor: Colors.gray,
+    marginVertical: 1.6,
+    backgroundColor: Colors.grayLight,
   }
 })

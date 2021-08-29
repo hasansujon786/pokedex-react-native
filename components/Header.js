@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, View } from 'react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated'
 
 import Colors from '../constant/colors'
 import { HEADER_SIZE } from '../constant/shared'
@@ -7,18 +8,39 @@ import { HEADER_SIZE } from '../constant/shared'
 const INDICATOR_SIZE = 80
 const LIGHT_SIZE = 20
 
-const Header = ({ isLoading }) => {
+const Header = ({ isFlashLightOn, isLoading }) => {
+  const indicatorOpacity = useSharedValue(1)
+
+  useEffect(() => {
+    if (isFlashLightOn) {
+      indicatorOpacity.value = withRepeat(
+        withTiming(0.5, { duration: 250 }),
+        -1,
+        true
+      )
+    } else {
+      indicatorOpacity.value = withTiming(1, { duration: 250 })
+    }
+  }, [isFlashLightOn])
+
+  const rStyles = useAnimatedStyle(() => {
+    return {
+      opacity: indicatorOpacity.value,
+    };
+  })
+
   return (
     <View style={styles.header}>
       <View style={{ flexDirection: 'row' }}>
         <View style={styles.indicatorWrapper} >
-          <View style={styles.indicator} />
+          <Animated.View style={[styles.indicator, rStyles]} />
         </View>
         <View style={styles.lightWrapper}>
           <View style={[styles.light, styles.lightRed]} />
           <View style={[styles.light, styles.lightYellow]} />
           <View style={[styles.light, styles.lightGreen]} />
-          {isLoading && <View style={[styles.light, styles.lightGreen]} />}
+          <View style={{ flex: 1 }} />
+          {isLoading && <View style={[styles.light, styles.lightRed]} />}
         </View>
       </View>
     </View>
@@ -54,6 +76,7 @@ const styles = StyleSheet.create({
   lightWrapper: {
     flexDirection: 'row',
     marginLeft: 20,
+    flex: 1,
   },
   light: {
     width: LIGHT_SIZE,

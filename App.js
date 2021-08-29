@@ -78,7 +78,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.screen}>
       <Header isFlashLightOn={isFlashLightOn} isLoading={isLoading} />
-      <Pressable style={{ flex: 1, padding: 10, paddingBottom: 0 }} onPress={handleCoverToggle}>
+      <Pressable style={{ flex: 1, padding: 8, paddingBottom: 0 }} onPress={handleCoverToggle}>
         <View style={{ backgroundColor: Colors.red, flex: 1 }}>
           <Display image={pokemon.image} />
           <Pressable onPress={() => sayPokemonName(pokemon)} style={styles.greenBox} />

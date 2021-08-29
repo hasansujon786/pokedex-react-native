@@ -3,7 +3,7 @@ export default {
   redDark:     '#d90013',
   yellow:      'hsl(39, 100%, 50%)',
   yellowDark:  'hsl(39, 100%, 40%)',
-  gray:        '#a1a1a1',
+  grayLight:   'hsl(0, 0%, 85%)',
   blue:        '#4B9AF4',
   blueDark:    '#145AAA',
   blueLight:   '#b2d9fd',
