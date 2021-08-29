@@ -1,14 +1,15 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import Colors from '../constant/colors'
+import { HEADER_SIZE } from '../constant/shared'
+
 const INDICATOR_SIZE = 80
 const LIGHT_SIZE = 20
 
-
-const Header = ({ height }) => {
+const Header = () => {
   return (
-    <View style={[styles.header, { height: height }]}>
+    <View style={styles.header}>
       <View style={{ flexDirection: 'row' }}>
         <View style={styles.indicatorWrapper} >
           <View style={styles.indicator} />
@@ -30,7 +31,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.red,
     paddingHorizontal: 20,
     borderBottomWidth: 3,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    height: HEADER_SIZE,
   },
   indicatorWrapper: {
     backgroundColor: Colors.blue,
@@ -72,5 +74,4 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.green,
     borderColor: Colors.greenDark,
   }
-
 });

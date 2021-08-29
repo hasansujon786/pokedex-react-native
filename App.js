@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Button, Text, Pressable, View, SafeAreaView } from 'react-native';
+import { StyleSheet, Pressable, View, SafeAreaView } from 'react-native';
+
 import Header from './components/Header'
 import Cover from './components/Cover'
-
+import Display from './components/Display'
 import Colors from './constant/colors'
-const HEADER_SIZE = 130
+import { DISPLAY_MARGIN } from './constant/shared'
 
 export default function App() {
   const [isCoverOpen, setIsCoverOpen] = useState(false)
@@ -14,11 +15,14 @@ export default function App() {
   }
   return (
     <SafeAreaView style={styles.screen}>
-      <Header height={HEADER_SIZE} />
-      <Pressable style={{ flex: 1 }} onPress={handleCoverToggle}>
-        <Text>Open up App.js to start working on your app!</Text>
+      <Header />
+      <Pressable style={{ flex: 1, padding: 10, paddingBottom: 0 }} onPress={handleCoverToggle}>
+        <View style={{ backgroundColor: Colors.red, flex: 1 }}>
+          <Display />
+          <View style={styles.greenBox} />
+        </View>
       </Pressable>
-      {/* <Text>Open up App.js to start working on your app!</Text> */}
+
       <Cover isOpen={isCoverOpen} onPress={handleCoverToggle} />
       <StatusBar hidden style="auto" />
     </SafeAreaView>
@@ -29,5 +33,14 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: Colors.redDark
+  },
+  greenBox: {
+    width: 160,
+    height: 88,
+    borderRadius: 10,
+    borderWidth: 5,
+    borderColor: Colors.greenDark,
+    backgroundColor: Colors.green,
+    marginLeft: DISPLAY_MARGIN,
   },
 });
