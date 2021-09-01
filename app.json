@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "pokedex-react-native",
-    "slug": "pokedex-react-native",
+    "name": "pokedex",
+    "slug": "hasan-pokedex",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,10 +23,14 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.hasanprojects.hasan",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "Get pokemon information in your own pokedex",
+    "githubUrl": "https://github.com/hasansujon786/pokedex-react-native"
   }
 }
